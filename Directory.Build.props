@@ -17,6 +17,7 @@
     <Company>CurlyRpc</Company>
     <Copyright>Copyright (c) CurlyRpc contributors</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/sebastienros/curlyrpc</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/sebastienros/curlyrpc</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
