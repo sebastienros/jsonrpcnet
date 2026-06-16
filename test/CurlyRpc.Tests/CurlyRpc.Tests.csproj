@@ -9,7 +9,6 @@
     <!-- Microsoft Testing Platform (v2) with the MSTest runner -->
     <EnableMSTestRunner>true</EnableMSTestRunner>
     <UseVSTest>false</UseVSTest>
-    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 
     <IsPackable>false</IsPackable>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>

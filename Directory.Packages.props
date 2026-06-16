@@ -22,9 +22,9 @@
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.300" />
 
     <!-- Tests: Microsoft Testing Platform v2 (MSTest runner) -->
-    <PackageVersion Include="MSTest.TestAdapter" Version="3.6.4" />
-    <PackageVersion Include="MSTest.TestFramework" Version="3.6.4" />
-    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.12.6" />
+    <PackageVersion Include="MSTest.TestAdapter" Version="4.2.3" />
+    <PackageVersion Include="MSTest.TestFramework" Version="4.2.3" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.8.0" />
   </ItemGroup>
 
 </Project>

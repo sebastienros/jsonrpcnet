@@ -42,7 +42,7 @@ public sealed class NewlineDelimitedMessageHandlerTests
         Assert.IsNull(await handler.ReadMessageAsync(CancellationToken.None));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(1)]
     [DataRow(2)]
     [DataRow(5)]
@@ -62,7 +62,7 @@ public sealed class NewlineDelimitedMessageHandlerTests
         byte[] wire = Utf8(new string('x', 200));
         var handler = new NewlineDelimitedMessageHandler(Stream.Null, new ChunkedReadStream(wire, 8), maximumMessageSize: 32);
 
-        var ex = await Assert.ThrowsExceptionAsync<JsonRpcMessageTooLargeException>(
+        var ex = await Assert.ThrowsExactlyAsync<JsonRpcMessageTooLargeException>(
             async () => await handler.ReadMessageAsync(CancellationToken.None));
         Assert.AreEqual(32, ex.MaximumMessageSize);
     }

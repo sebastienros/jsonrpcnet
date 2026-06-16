@@ -24,7 +24,7 @@ jobs:
         global-json-file: global.json
 
     - name: Test
-      run: dotnet test CurlyRpc.slnx -c Release
+      run: dotnet test --solution CurlyRpc.slnx -c Release
 
     - name: Pack with dotnet
       run: |

@@ -32,7 +32,7 @@ public sealed class HeaderDelimitedMessageHandlerTests
         Assert.IsNull(await handler.ReadMessageAsync(CancellationToken.None));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(1)]
     [DataRow(2)]
     [DataRow(3)]
@@ -70,7 +70,7 @@ public sealed class HeaderDelimitedMessageHandlerTests
         byte[] wire = Utf8("Content-Length: 50\r\n\r\n{\"partial\":");
         var handler = new HeaderDelimitedMessageHandler(Stream.Null, new MemoryStream(wire));
 
-        await Assert.ThrowsExceptionAsync<EndOfStreamException>(
+        await Assert.ThrowsExactlyAsync<EndOfStreamException>(
             async () => await handler.ReadMessageAsync(CancellationToken.None));
     }
 
@@ -80,7 +80,7 @@ public sealed class HeaderDelimitedMessageHandlerTests
         byte[] wire = Utf8("X-Whatever: 1\r\n\r\n{}");
         var handler = new HeaderDelimitedMessageHandler(Stream.Null, new MemoryStream(wire));
 
-        await Assert.ThrowsExceptionAsync<InvalidDataException>(
+        await Assert.ThrowsExactlyAsync<InvalidDataException>(
             async () => await handler.ReadMessageAsync(CancellationToken.None));
     }
 
@@ -100,7 +100,7 @@ public sealed class HeaderDelimitedMessageHandlerTests
         byte[] wire = Utf8("Content-Length: 5000\r\n\r\n");
         var handler = new HeaderDelimitedMessageHandler(Stream.Null, new MemoryStream(wire), maximumMessageSize: 16);
 
-        var ex = await Assert.ThrowsExceptionAsync<JsonRpcMessageTooLargeException>(
+        var ex = await Assert.ThrowsExactlyAsync<JsonRpcMessageTooLargeException>(
             async () => await handler.ReadMessageAsync(CancellationToken.None));
         Assert.AreEqual(16, ex.MaximumMessageSize);
     }

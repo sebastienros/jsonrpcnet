@@ -53,7 +53,7 @@ public sealed class SecurityTests
 
         await client.NotifyAsync("echo", new string('x', 500));
 
-        await Assert.ThrowsExceptionAsync<JsonRpcMessageTooLargeException>(
+        await Assert.ThrowsExactlyAsync<JsonRpcMessageTooLargeException>(
             async () => await server.Completion.WaitAsync(TimeSpan.FromSeconds(5)));
     }
 
@@ -69,7 +69,7 @@ public sealed class SecurityTests
         });
         rpc.StartListening();
 
-        await Assert.ThrowsExceptionAsync<JsonRpcMessageTooLargeException>(
+        await Assert.ThrowsExactlyAsync<JsonRpcMessageTooLargeException>(
             async () => await rpc.Completion.WaitAsync(TimeSpan.FromSeconds(5)));
     }
 
@@ -144,7 +144,7 @@ public sealed class SecurityTests
         await using var _c = client;
         await using var _s = server;
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<bool>("boom"));
 
         Assert.AreEqual(JsonRpcErrorCodes.InternalError, ex.ErrorCode);
@@ -159,7 +159,7 @@ public sealed class SecurityTests
         await using var _c = client;
         await using var _s = server;
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<bool>("boom"));
 
         StringAssert.Contains(ex.Message, "secret-detail");
@@ -205,7 +205,7 @@ public sealed class SecurityTests
         client.StartListening();
         await using var _c = client;
 
-        await Assert.ThrowsExceptionAsync<ConnectionLostException>(
+        await Assert.ThrowsExactlyAsync<ConnectionLostException>(
             async () => await client.Completion.WaitAsync(TimeSpan.FromSeconds(5)));
     }
 

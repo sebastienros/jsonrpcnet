@@ -35,7 +35,7 @@ jobs:
       run: dotnet --version
 
     - name: Test
-      run: dotnet test CurlyRpc.slnx -c Release
+      run: dotnet test --solution CurlyRpc.slnx -c Release
 
   aot-smoke:
 

@@ -50,7 +50,7 @@ public sealed class DispatchTests
         string greeting = (await client.InvokeAsync<string>("greet", "world"))!;
         Assert.AreEqual("hello world", greeting);
 
-        await Assert.ThrowsExceptionAsync<RemoteMethodNotFoundException>(
+        await Assert.ThrowsExactlyAsync<RemoteMethodNotFoundException>(
             async () => await client.InvokeAsync<int>("Secret"));
     }
 
@@ -85,7 +85,7 @@ public sealed class DispatchTests
         server.StartListening();
         client.StartListening();
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<int>("needsInt", "not-a-number"));
 
         Assert.AreEqual(JsonRpcErrorCodes.InvalidParams, ex.ErrorCode);
@@ -123,15 +123,15 @@ public sealed class DispatchTests
         Assert.AreEqual(1, await client.InvokeAsync<int>("Visible"));
 
         // Methods declared on System.Object must not be exposed.
-        await Assert.ThrowsExceptionAsync<RemoteMethodNotFoundException>(
+        await Assert.ThrowsExactlyAsync<RemoteMethodNotFoundException>(
             async () => await client.InvokeAsync<string>("ToString"));
-        await Assert.ThrowsExceptionAsync<RemoteMethodNotFoundException>(
+        await Assert.ThrowsExactlyAsync<RemoteMethodNotFoundException>(
             async () => await client.InvokeAsync<int>("GetHashCode"));
-        await Assert.ThrowsExceptionAsync<RemoteMethodNotFoundException>(
+        await Assert.ThrowsExactlyAsync<RemoteMethodNotFoundException>(
             async () => await client.InvokeAsync<string>("GetType"));
 
         // Non-public methods must not be exposed.
-        await Assert.ThrowsExceptionAsync<RemoteMethodNotFoundException>(
+        await Assert.ThrowsExactlyAsync<RemoteMethodNotFoundException>(
             async () => await client.InvokeAsync<int>("Hidden"));
     }
 
@@ -215,7 +215,7 @@ public sealed class DispatchTests
         server.StartListening();
         client.StartListening();
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             () => client.InvokeWithParameterObjectAsync<int>("subtract", new { minuend = 42 }));
         Assert.AreEqual(JsonRpcErrorCodes.InvalidParams, ex.ErrorCode);
     }

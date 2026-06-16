@@ -37,7 +37,7 @@ public sealed class AuthTests
         await using var _c = client;
         await using var _s = server;
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<string>("echo", "hi"));
 
         Assert.AreEqual(HandshakeAuthenticationMiddleware.AuthenticationRequiredErrorCode, ex.ErrorCode);
@@ -75,7 +75,7 @@ public sealed class AuthTests
         await using var _c = client;
         await using var _s = server;
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<bool>("authenticate", "wrong-token"));
 
         Assert.AreEqual(HandshakeAuthenticationMiddleware.AuthenticationFailedErrorCode, ex.ErrorCode);
@@ -98,7 +98,7 @@ public sealed class AuthTests
         server.StartListening();
         client.StartListening();
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<bool>("authenticate", "wrong-token"));
 
         Assert.AreEqual(HandshakeAuthenticationMiddleware.AuthenticationFailedErrorCode, ex.ErrorCode);
@@ -124,7 +124,7 @@ public sealed class AuthTests
         server.StartListening();
         client.StartListening();
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<bool>("authenticate", "wrong-token"));
 
         Assert.AreEqual(HandshakeAuthenticationMiddleware.AuthenticationFailedErrorCode, ex.ErrorCode);

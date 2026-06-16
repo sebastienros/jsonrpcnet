@@ -56,7 +56,7 @@ public sealed class JsonRpcTests
         server.StartListening();
         client.StartListening();
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteMethodNotFoundException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteMethodNotFoundException>(
             async () => await client.InvokeAsync<int>("missing", 1));
 
         Assert.AreEqual(JsonRpcErrorCodes.MethodNotFound, ex.ErrorCode);
@@ -74,7 +74,7 @@ public sealed class JsonRpcTests
         server.StartListening();
         client.StartListening();
 
-        var ex = await Assert.ThrowsExceptionAsync<RemoteInvocationException>(
+        var ex = await Assert.ThrowsExactlyAsync<RemoteInvocationException>(
             async () => await client.InvokeAsync<int>("fail"));
 
         Assert.AreEqual(-32001, ex.ErrorCode);
@@ -145,7 +145,7 @@ public sealed class JsonRpcTests
 
         cts.CancelAfter(TimeSpan.FromMilliseconds(100));
 
-        await Assert.ThrowsExceptionAsync<TaskCanceledException>(async () => await invocation);
+        await Assert.ThrowsExactlyAsync<TaskCanceledException>(async () => await invocation);
         await serverObservedCancellation.Task.WaitAsync(TimeSpan.FromSeconds(5));
     }
 

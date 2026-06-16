@@ -8,6 +8,7 @@ public sealed class SmokeTests
     [TestMethod]
     public void Toolchain_IsWired()
     {
-        Assert.AreEqual(-32601, JsonRpcErrorCodes.MethodNotFound);
+        int methodNotFound = JsonRpcErrorCodes.MethodNotFound;
+        Assert.AreEqual(-32601, methodNotFound);
     }
 }
