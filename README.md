@@ -38,7 +38,6 @@ CurlyRpc gives each side of a connection a full-duplex JSON-RPC 2.0 peer with a 
 - [Security and hardening](#security-and-hardening)
 - [Observability](#observability)
 - [Options reference](#options-reference)
-- [Migrating from StreamJsonRpc](#migrating-from-streamjsonrpc)
 - [Sample](#sample)
 
 ## Package
@@ -577,19 +576,6 @@ carry trace context.
 | `ExposeExceptionDetails` | `true` | When `false`, unhandled handler exceptions return a generic message instead of `Exception.Message`. |
 | `KeepAliveInterval` | `TimeSpan.Zero` (disabled) | Interval between automatic `$/ping` liveness probes. |
 | `KeepAliveTimeout` | `KeepAliveInterval` | How long to wait for a ping response before faulting with `ConnectionLostException`. |
-
-## Migrating from StreamJsonRpc
-
-CurlyRpc mirrors StreamJsonRpc's stream-ownership contract: `new JsonRpc(stream)` and
-`JsonRpc.Attach(stream)` **take ownership of the stream** and dispose it when the connection is
-disposed, so disposing the connection closes the transport and the peer observes end-of-stream. If
-your code relies on `using var rpc = …` to tear the connection down (for example a server that frees a
-slot only when the peer disconnects), this works unchanged.
-
-If you instead want to keep the stream open after the connection is disposed, set
-`JsonRpcOptions.OwnsStream = false` (StreamJsonRpc requires dropping to a manually-constructed
-handler for the same effect). When you build the message handler yourself, ownership is governed by
-the handler's `ownsStream(s)` argument and defaults to caller-owns either way.
 
 ## Sample
 
