@@ -16,7 +16,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
 
     <!-- Source generator (bundled into the CurlyRpc package as an analyzer) -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
 
     <!-- Source Link: embed repository/commit info so consumers can step into sources -->
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.300" />
@@ -24,11 +24,7 @@
     <!-- Tests: Microsoft Testing Platform v2 (MSTest runner) -->
     <PackageVersion Include="MSTest.TestAdapter" Version="3.6.4" />
     <PackageVersion Include="MSTest.TestFramework" Version="3.6.4" />
-    <PackageVersion Include="Microsoft.Testing.Platform" Version="1.4.3" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.12.6" />
-
-    <!-- Generator tests -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing.MSTest" Version="1.1.2" />
   </ItemGroup>
 
 </Project>
