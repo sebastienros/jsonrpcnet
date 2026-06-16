@@ -10,7 +10,9 @@ namespace CurlyRpc;
 /// </summary>
 public sealed class HeaderDelimitedMessageHandler : StreamMessageHandler
 {
-    private static readonly byte[] ContentLengthName = "content-length"u8.ToArray();
+    // The u8 literal is backed by the assembly's data section, so exposing it as a span avoids the
+    // static byte[] allocation a field initializer would incur. Only ever compared via Ascii.EqualsIgnoreCase.
+    private static ReadOnlySpan<byte> ContentLengthName => "content-length"u8;
 
     /// <summary>
     /// Initializes a new <see cref="HeaderDelimitedMessageHandler"/> over a single duplex stream.
